@@ -21,7 +21,7 @@
             <li><a href="#">Programs</a></li>
             <li><a href="#">Events</a></li>
             <li><a href="#">Campuses</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="<?php //echo ( get_post_type() == 'post' ) ? 'class="current-menu-item"' : ''; ?>">Blog</a></li>
           </ul> -->
           <?php
 
