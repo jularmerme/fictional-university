@@ -17,7 +17,7 @@
 
       <?php
         $_parent_id = wp_get_post_parent_id(get_the_ID());
-        if ($_parent_id) {
+        if ( $_parent_id ) {
       ?>
       <div class="metabox metabox--position-up metabox--with-home-link">
         <p>
@@ -28,22 +28,30 @@
       </div>
       <?php } ?>
 
-     <div class="page-links">
-        <h2 class="page-links__title"><a href="<?php echo get_permalink($_parent_id); ?>"><?php echo get_the_title($_parent_id); ?></a></h2>
-        <ul class="min-list">
-          <?php 
-            if($_parent_id) {
-              $findChildrenOf = $_parent_id;
-            } else {
-              $findChildrenOf = get_the_ID();
-            }
-            wp_list_pages(array(
-              'title_li' => NULL,
-              'child_of' => $findChildrenOf
-            )); ?>
-         
-        </ul>
-      </div>
+      <?php
+        $testArray = get_pages(array(
+          'child_of' => get_the_ID(),
+        ));
+
+        if ( $_parent_id or $testArray ) { ?>
+        <div class="page-links">
+            <h2 class="page-links__title"><a href="<?php echo get_permalink($_parent_id); ?>"><?php echo get_the_title($_parent_id); ?></a></h2>
+            <ul class="min-list">
+              <?php 
+                if( $_parent_id ) {
+                  $findChildrenOf = $_parent_id;
+                } else {
+                  $findChildrenOf = get_the_ID();
+                }
+                wp_list_pages(array(
+                  'title_li' => NULL,
+                  'child_of' => $findChildrenOf, 
+                  'sort_column' => 'menu_order'
+                )); ?>
+            
+            </ul>
+          </div>
+        <?php } ?>
 
       <div class="generic-content">
         <?php the_content(); ?>
